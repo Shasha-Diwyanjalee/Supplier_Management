@@ -1,0 +1,87 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Supplier List{% endblock title %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Supplier</a></li>
+                            <li class="active">List</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row d-flex justify-content-between">
+                    <h4 class="box-title">Supplier List </h4>
+                    <form action="{% url 'supplier_search' %}" method="get">
+                        <input name="supplier_search" type="text" placeholder="Search by id or name">
+                    </form>
+                </div>
+            </div>
+            <div class="card-body--">
+                <div class="table-stats order-table ov-h">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th class="serial">#</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Contact</th>
+                                <th>Address</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if supplier %}
+                            {% for supplier in supplier %}
+                            <tr>
+                                <td class="serial">{{ supplier.id }}</td>
+                                <td>{{ supplier.name }}</td>
+                                <td>{{ supplier.email }}</td>
+                                <td>{{ supplier.contact }}</td>
+                                <td>{{ supplier.address }}</td>
+                                <td>{{ supplier.created_date }}</td>
+                                <td>
+                                    <a href="/store/update-supplier/{{supplier.id}}/"><i class="fa fa-pencil"></i></a>
+                                    &nbsp;&nbsp;
+                                    <a href="/store/supplier-list/delete/{{supplier.id}}/"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                                <tr><td>No Supplier Data</td></tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div> <!-- /.table-stats -->
+            </div>
+        </div> <!-- /.card -->
+    </div>  <!-- /.col-lg-8 -->
+
+    
+</div>
+{% endblock content %}
